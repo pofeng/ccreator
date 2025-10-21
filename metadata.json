@@ -1,0 +1,5 @@
+{
+  "name": "AI Content Synthesizer",
+  "description": "An AI-powered chatbot that takes a URL, analyzes its content, and generates two distinct articles (a blog post and a briefing document) in Traditional Chinese, along with a visually descriptive prompt for an image generation AI.",
+  "requestFramePermissions": []
+}
