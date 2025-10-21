@@ -42,7 +42,7 @@ const App: React.FC = () => {
   const WelcomeMessage: React.FC = () => (
     <div className="text-center p-10 bg-slate-800/50 rounded-lg border border-slate-700">
       <Bot className="mx-auto h-16 w-16 text-indigo-400 mb-4" />
-      <h2 className="text-2xl font-bold text-slate-100">AI 內容合成器</h2>
+      <h2 className="text-2xl font-bold text-slate-100">ccreator : AI 內容合成器</h2>
       <p className="mt-2 text-slate-400">
         輸入一個網址或貼上文字，AI 將為您分析內容並生成部落格文章、簡報文件和圖片提示。
       </p>
@@ -54,7 +54,7 @@ const App: React.FC = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <header className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">
-            AI 內容合成器
+            ccreator : AI 內容合成器
           </h1>
           <p className="mt-4 text-lg text-slate-400">
             從任何網頁文章或文字內容中即時生成多種格式的內容。
