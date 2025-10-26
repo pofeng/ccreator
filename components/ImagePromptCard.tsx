@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { Copy, Check } from 'lucide-react';
+import { Copy, Check, Download } from 'lucide-react';
 
 interface ImagePromptCardProps {
   title: string;
@@ -15,6 +16,17 @@ export const ImagePromptCard: React.FC<ImagePromptCardProps> = ({ title, prompt,
     navigator.clipboard.writeText(prompt);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDownloadImage = () => {
+    if (imageData) {
+      const link = document.createElement('a');
+      link.href = `data:image/jpeg;base64,${imageData}`;
+      link.download = 'generated-image.jpeg';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   };
 
   return (
@@ -43,7 +55,7 @@ export const ImagePromptCard: React.FC<ImagePromptCardProps> = ({ title, prompt,
         </div>
         
         {imageData && (
-          <div className="flex-grow flex flex-col">
+          <div className="flex-grow flex flex-col gap-4">
              <h4 className="text-sm font-semibold text-slate-400 mb-2">生成圖片</h4>
             <div className="w-full aspect-video bg-slate-900 rounded-lg overflow-hidden flex items-center justify-center">
                 <img 
@@ -52,6 +64,13 @@ export const ImagePromptCard: React.FC<ImagePromptCardProps> = ({ title, prompt,
                 className="w-full h-full object-cover"
                 />
             </div>
+            <button
+              onClick={handleDownloadImage}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-md transition-all duration-300 ease-in-out flex items-center justify-center transform hover:scale-105"
+            >
+              <Download className="h-5 w-5 mr-2" />
+              下載圖片
+            </button>
           </div>
         )}
       </div>

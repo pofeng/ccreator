@@ -47,7 +47,7 @@ export async function generateContent(inputType: 'url' | 'text', value: string):
     
     Task 3: Based on the two articles you just generated, create a concise, visually descriptive prompt in English for an image generation AI like Imagen. The prompt should capture the core essence and mood of the content.
     
-    Return the results in a JSON format according to the provided schema. Ensure the generated text for the blog post and briefing document is properly formatted with HTML tags (e.g., <h1>, <h2>, <p>, <ul>, <li>, <blockquote>, <strong>) for headings, paragraphs, lists, and emphasis.
+    Return the results in a JSON format according to the provided schema. Ensure the generated text for the blog post and briefing document is properly formatted with HTML tags (e.g., <h1>, <h2>, <p>, <ul>, <li>, blockquote, <strong>) for headings, paragraphs, lists, and emphasis.
   `;
 
   try {
@@ -97,5 +97,36 @@ export async function generateImage(prompt: string): Promise<string> {
   } catch (error) {
     console.error("Error calling Imagen API:", error);
     throw new Error("Failed to generate an image from the prompt.");
+  }
+}
+
+export async function generateImagePromptFromText(text: string): Promise<string> {
+  const fullPrompt = `
+    Analyze the following text content. Based on its core theme, mood, and main elements, create a concise, visually descriptive English prompt suitable for an image generation AI like Imagen.
+    The prompt should aim to generate a visually stunning image with a cinematic feel, high detail, photorealistic style, and a 16:9 aspect ratio.
+    Only output the image prompt, nothing else.
+
+    Text content to analyze:
+    ${text}
+  `;
+
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash", // Use flash model for text tasks
+      contents: fullPrompt,
+      config: {
+        temperature: 0.7,
+      },
+    });
+
+    const imagePrompt = response.text.trim();
+    if (imagePrompt) {
+      return imagePrompt;
+    } else {
+      throw new Error("No image prompt was generated from the text.");
+    }
+  } catch (error) {
+    console.error("Error calling Gemini API for image prompt generation:", error);
+    throw new Error("Failed to generate image prompt from the provided text.");
   }
 }
